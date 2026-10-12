@@ -1,0 +1,349 @@
+[
+    {
+        "id": "1b1324e6b458ee29",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "698091a9675f3b4c",
+        "type": "inject",
+        "z": "1b1324e6b458ee29",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "date"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "391a612bc67e7d7a"
+            ]
+        ]
+    },
+    {
+        "id": "391a612bc67e7d7a",
+        "type": "http request",
+        "z": "1b1324e6b458ee29",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://esptemp-3d6c4-default-rtdb.firebaseio.com/temperature.json",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 110,
+        "y": 280,
+        "wires": [
+            [
+                "37463b8a47e5fc8c",
+                "ce3261e3cf01e607"
+            ]
+        ]
+    },
+    {
+        "id": "e9ac746b70392a86",
+        "type": "debug",
+        "z": "1b1324e6b458ee29",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 280,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "37463b8a47e5fc8c",
+        "type": "switch",
+        "z": "1b1324e6b458ee29",
+        "name": "",
+        "property": "payload.temperature",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "31",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "otherwise",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 290,
+        "y": 280,
+        "wires": [
+            [
+                "e9ac746b70392a86",
+                "c3b34493f8dfffb4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "c3b34493f8dfffb4",
+        "type": "change",
+        "z": "1b1324e6b458ee29",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "high temperature detected",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 280,
+        "wires": [
+            [
+                "4386483f2a0b04a3"
+            ]
+        ]
+    },
+    {
+        "id": "4386483f2a0b04a3",
+        "type": "debug",
+        "z": "1b1324e6b458ee29",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "caae03ba69f5fe91",
+        "type": "ui-gauge",
+        "z": "1b1324e6b458ee29",
+        "name": "",
+        "group": "d06af2da57b18cda",
+        "order": 1,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Temperature(°C)",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "°C",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "4",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "7",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": 0,
+        "max": "50",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 370,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6e8c5243b56242fc",
+        "type": "debug",
+        "z": "1b1324e6b458ee29",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 200,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "ce3261e3cf01e607",
+        "type": "function",
+        "z": "1b1324e6b458ee29",
+        "name": "function 1",
+        "func": "msg.payload = Number(msg.payload.temperature);\nreturn msg;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 140,
+        "y": 460,
+        "wires": [
+            [
+                "caae03ba69f5fe91",
+                "6e8c5243b56242fc"
+            ]
+        ]
+    },
+    {
+        "id": "d06af2da57b18cda",
+        "type": "ui-group",
+        "name": "Sensor readings",
+        "page": "e6d921c430282824",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default",
+        "tab": ""
+    },
+    {
+        "id": "e6d921c430282824",
+        "type": "ui-page",
+        "name": "IoT Temperature Monitor",
+        "ui": "ef2619df63e958e5",
+        "path": "/page1",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "083fa532a737bad9",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "tabs": [],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "ef2619df63e958e5",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "083fa532a737bad9",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#fcfcfd",
+            "primary": "#0d74ce",
+            "bgPage": "#f9f9fb",
+            "groupBg": "#ffffff",
+            "groupOutline": "#d9d9e0"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "12b568f5c2ecb49c",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.33.0"
+        }
+    }
+]
